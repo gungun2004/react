@@ -1,0 +1,110 @@
+.App {
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+.custom-link{
+  color: grey;
+  font-size: 18px;
+}
+.custom-link:hover{
+  font-size:22px;
+  color:blue;
+}
+.loginpage{
+  background-color: #61dafb;
+  height: '600px';
+}
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.nav-link {
+  color: white;
+  font-size: 1.2rem;
+}
+.loginimage{
+display:block;
+justify-content: center;
+align-items: center;
+}
+.dashboard-panel {
+  margin-top: 100px;}
+.Accordianbg{
+  background-color: skyblue;
+  color: aliceblue;
+}
+.loginform
+{ 
+background-image: url('https://i.pinimg.com/originals/4c/33/ef/4c33ef1f0c28efb56b49fb948d86ec49.gif'); /* Replace with your image URL */
+background-size: cover; /* Ensures the image covers the entire container */
+background-position: center; /* Centers the image */
+background-repeat: no-repeat; /* Prevents repeating */
+width: 100%; /* Sets the container's width */
+max-width: 500px; /* Limit max width for better layout */
+padding: 20px;
+margin: 50px auto; /* Centers the form horizontally */
+border-radius: 10px;
+box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+height: 500px;
+}
+
+#form1{
+  display:none;
+  background-image: url('https://img.freepik.com/premium-photo/laptop-blue-background-modern-laptop-blue-background-top-view-space-text_882954-22231.jpg'); 
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat;
+  width: 100%; 
+  max-width: 500px; 
+  padding: 20px;
+  margin: 50px auto;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  height: 300px; }
+label {
+  display: block; 
+  margin-bottom: 10px;
+}
+.table tbody td:nth-child(even) {
+  background-color: grey; 
+}
+.table thead th{
+  background-color: grey; 
+  color: aliceblue;
+}
+.table tbody td:nth-child(odd) {
+  background-color:skyblue; 
+}
+
+
+.navs{
+  background-color: skyblue;
+}
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
