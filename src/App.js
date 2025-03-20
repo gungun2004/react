@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react';
 import './App.css';
 import Home from './Home';
@@ -19,6 +20,31 @@ function App() {
     </>
 
     
+=======
+import Alert from 'react-bootstrap/Alert';
+import Functions from './Functions';
+
+function App() {
+  return (
+    <>
+      {[
+        'primary',
+        'secondary',
+        'success',
+        'danger',
+        'warning',
+        'info',
+        'light',
+        'dark',
+      ].map((variant) => (
+        <Alert key={variant} variant={variant}>
+          This is a {variant} alert—check it out!
+        </Alert>
+        
+      ))}
+      <Functions/>
+    </>
+>>>>>>> 6d9400c90efbf4d46e06f7b432cf583b1fab420d
   );
 }
 export default App;
