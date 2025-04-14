@@ -18,85 +18,126 @@ function Dashboard()
      getData();
 },[])
 
-  function getData()
-  {
-    fetch("https://apifortesting.netlify.app/.netlify/functions/app/getemployees").then(res=>res.json()).then(result=>setData(result));
+  function getData() {
+        fetch('https://node-2fkp.onrender.com/getdata') 
+      .then(response => response.json())
+      .then(fetchedData => {
+        if (Array.isArray(fetchedData)) {
+          setData(fetchedData);
+        } else {
+          console.error('Fetched data is not an array:', fetchedData);
+          setData([]);
+        }
+      })
+      .catch(error => console.error('Error fetching data:', error));
   }
+  
+
   function manageteachers()
   {}
   const insert = () => {
-    console.log(JSON.stringify({
-      "Name": name,
-      "Course": course
-    }));
-   
-const request=
-{
-method:'post',
-headers:{'Content-type':'application/JSON'},
-body:(JSON.stringify(
-    {       
-"Name":name,
-"Course":course
-    }
+    const request = {
+      method: 'POST',
+      headers: { 'Content-type': 'application/json' },
+      body: JSON.stringify({
+        "first_name": name,
+        "id": course
+      })
+    };
 
-))
-};
-fetch("https://apifortesting.netlify.app/.netlify/functions/app/insertemployees",request).then(res=>res.json()).then(req=>
-{
-if(req.status==200)
-{    getData();
-alert("data Inserted Successfully");
-}
-});
-  }
+    fetch("https://node-2fkp.onrender.com/insertdata", request)
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then(req => {
+        if (req.status === 200) {
+          getData();
+          alert("Data inserted successfully");
+        } else {
+          console.error("Unexpected response:", req);
+          alert("Failed to insert data");
+        }
+      })
+      .catch(error => {
+        console.error("Error inserting data:", error);
+        alert("An error occurred while inserting data");
+      });
+  };
+
   function edit(item)
 {
-    setname(item.Name);
-    setCourse(item.Course);
+    setname(item.first_name);
+    setCourse(item.id);
     seteditflag("true");
-    setval(item.Name);
+    setval(item.first_name);
     setname("");
     setCourse("");
 }
 
-  function update(item)
-{
-    const request=
-    {
-        method:'PUT',
-        headers:{'Content-type':'application/JSON'},
-        body: JSON.stringify({
-            "Name": name,
-            "Course": course
-        })
-    }
-fetch(`https://apifortesting.netlify.app/.netlify/functions/app/updateemployees?name=${val}`,request).then((res)=>{res.json().then((resp)=>{
-    if (resp.status==200)
-    {
-getData();
-alert("record updated successfully");
-    }})
-seteditflag("false");
-})
-}
-function deletedata(item)
-{
-           
-    const request=
-    {
-        method:'DELETE',
-        headers:{'Content-type':'application/JSON'},
-    }
-        fetch(`https://apifortesting.netlify.app/.netlify/functions/app/deleteemployees?name=${item.Name}`, request)
-            .then(res => res.json())
-            .then(resp => {
-                if (resp.status == 200) {
-                  getData();
-                    alert("Record deleted successfully");
-                }
-            })
-}
+  function update() {
+    const request = {
+      method: 'PUT',
+      headers: { 'Content-type': 'application/json' },
+      body: JSON.stringify({
+        "first_name": name,
+        "id": course
+      })
+    };
+
+    fetch(`https://node-2fkp.onrender.com/editdata?name=${val}`, request)
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then(resp => {
+        if (resp.status === 200) {
+          getData();
+          alert("Record updated successfully");
+        } else {
+          console.error("Unexpected response:", resp);
+          alert("Failed to update record");
+        }
+        seteditflag("false");
+      })
+      .catch(error => {
+        console.error("Error updating data:", error);
+        alert("An error occurred while updating data");
+      });
+  }
+
+  function deletedata(item) {
+    const request = {
+      method: 'DELETE',
+      headers: { 'Content-type': 'application/json' }
+    };
+
+    fetch(`https://node-2fkp.onrender.com/deletedata?name=${item.first_name}`, request)
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then(resp => {
+        if (resp.status === 200) {
+          getData();
+          alert("Record deleted successfully");
+        } else {
+          console.error("Unexpected response:", resp);
+          alert("Failed to delete record");
+        }
+      })
+      .catch(error => {
+        console.error("Error deleting data:", error);
+        alert("An error occurred while deleting data");
+      });
+  }
+
 function visibility()
 {
   document.getElementById("form1").style.display='block';
@@ -180,18 +221,18 @@ setFlag(true);
       </form><br></br> <table border="5" class="table">
                      <thead>
                          <tr><th>Sr.No</th>
-                             <th>Name</th>
-                             <th>Course</th>
+                             <th>FIRST NAME</th>
+                             <th>Course ID</th>
                              <th>Action 1</th>
                              <th>Action 2</th>
                          </tr>
                      </thead>
                      <tbody>
-                         {data.map((item,index) =>(
-                             <tr>
+                         {Array.isArray(data) && data.map((item,index) =>(
+                             <tr key={index}>
                               <td>{index+1}</td>
-                                 <td>{item.Name}</td>
-                                 <td>{item.Course}</td>
+                                 <td>{item.first_name}</td>
+                                 <td>{item.id}</td>
                                  <td><Button variant='primary' onClick={()=>edit(item)}><b>EDIT</b></Button></td>
                                  <td><Button variant='danger' onClick={()=>deletedata(item)}><b>DELETE</b></Button></td>
                              </tr>                ))}
